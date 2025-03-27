@@ -411,7 +411,6 @@ void c_disort(disort_state  *ds,
   const double
     dither = 100.*DBL_EPSILON;
 
-
   /* Set these here to ensure that memory is correctly allocated. */
   if (!ds->flag.usrtau) {
     ds->ntau = ds->nlyr+1;
@@ -439,7 +438,7 @@ void c_disort(disort_state  *ds,
     c_self_test(compare,prntu0_test,&ds_test,&out_test);
     c_disort(&ds_test,&out_test);
   }
-
+  
   /*
    * Determine whether there is scattering or not
    */
@@ -450,7 +449,7 @@ void c_disort(disort_state  *ds,
       break;
     }
   }
-
+  
   /* 
    * Turn on delta-M tranformation
    */
@@ -482,6 +481,7 @@ void c_disort(disort_state  *ds,
 
   prntu0[0] = FALSE;
   prntu0[1] = FALSE;
+  
 
   /*
    * Allocate zeroed memory
@@ -577,7 +577,7 @@ void c_disort(disort_state  *ds,
 
     return;
   }
-
+  
   /*--------------*
    * General case *
    *--------------*/
@@ -809,7 +809,6 @@ void c_disort(disort_state  *ds,
       }
     }
     /*-------------------  END LOOP ON COMPUTATIONAL LAYERS  ----------------*/
-
     /*
      *
      * Set coefficient matrix of equations combining boundary and layer interface conditions
@@ -912,7 +911,7 @@ void c_disort(disort_state  *ds,
     }
   }
   /*--------------  END LOOP ON AZIMUTHAL COMPONENTS  ----------------*/
-
+  
   if (corint) {
     /*
      * Apply Nakajima/Tanaka intensity corrections
@@ -970,6 +969,7 @@ void c_disort(disort_state  *ds,
   free(ylm0),free(ylmc),free(ylmu);
   free(z),free(zbu),free(zbeam),free(zbeamsp),
   free(zbeama),free(zbs),free(zj),free(zju),free(zz),free(zee),free(zu);
+  
 
   return;
 }
