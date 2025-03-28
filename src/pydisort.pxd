@@ -1,14 +1,18 @@
 cdef extern from "cdisort.h":
+    # DISORT flags
     ctypedef struct disort_flag:
         int usrtau, usrang, ibcnd, lamber, planck, spher, onlyfl, brdf_type, quiet, intensity_correction, old_intensity_correction
         int prnt[5]
 
+    # DISORT radiant information (output from running the model)
     ctypedef struct disort_radiant:
         double rfldir, rfldn, flup, dfdt, uavg, uavgdn, uavgup, uavgso
     
+    # DISORT boundary conditions
     ctypedef struct disort_bc:
         double fbeam,  umu0, phi0, fisot, ttemp, btemp, temis, albedo
 
+    # BRDF specifications for different models
     ctypedef struct rpv_brdf_spec:
         double rho0, k, theta, sigma, t1, t2, scale
 
@@ -24,6 +28,7 @@ cdef extern from "cdisort.h":
       ambrals_brdf_spec *ambrals  # specification for ambrals BRDF  */
       cam_brdf_spec *cam       # specification for Cox&Munk BRDF */
 
+    # Input state to the DISORT calculation
     ctypedef struct disort_state:
         char header[128]
         disort_flag flag
@@ -42,6 +47,7 @@ cdef extern from "cdisort.h":
         double *mu_phase
         double *phase
      
+    # Output from the DISORT model
     ctypedef struct disort_output:
         disort_radiant *rad       # See typedef disort_radiant
         double *albmed
@@ -49,6 +55,9 @@ cdef extern from "cdisort.h":
         double *uu
         double *u0u
 
+    cdef int SPECIAL_BC
+
     extern void c_disort(disort_state *, disort_output *)
     extern void c_disort_out_alloc(disort_state *, disort_output *)
     extern void c_disort_state_alloc(disort_state *)
+    extern void c_disort_out_free(disort_state *, disort_output *)

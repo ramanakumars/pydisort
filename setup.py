@@ -7,13 +7,12 @@ ext_modules = [
         name="pydisort",
         sources=["src/pydisort.pyx", "src/locate.c", "src/cdisort.c"],  # Cython and C sources
         include_dirs=["src"],
-        extra_compile_args=['-O2', '-g']
+        extra_compile_args=['-O3', '-g']
     )
 ]
 
 setup(
     name="pydisort",
     version="0.1",
-    cmdclass={'build_ext': build_ext},
     ext_modules=cythonize(ext_modules),
 )
