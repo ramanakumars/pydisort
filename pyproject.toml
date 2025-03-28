@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>74.1", "Cython"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pydisort"
+version = "0.1"
+dependencies = [
+  'numpy>=2.0'
+]
+
+[tool.setuptools]
+ext-modules = [
+  {name="pydisort", sources=["src/pydisort.pyx", "src/locate.c", "src/cdisort.c"]}
+]
