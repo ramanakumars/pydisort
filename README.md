@@ -27,7 +27,7 @@ nmom = 16
 nstr = 16
 
 # get the phase function moments for an isotropic atmosphere
-pmom = pydisort.get_phase_function('isotropic', nmom + 1, 0)
+pmom = pydisort.get_phase_function('isotropic', nmom, 0)
 
 # copy the moments for all the layers of the atmosphere
 pmom = np.repeat(pmom[:, np.newaxis], nlayers, axis=1).flatten().tolist()
