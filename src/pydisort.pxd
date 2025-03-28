@@ -57,7 +57,14 @@ cdef extern from "cdisort.h":
 
     cdef int SPECIAL_BC
 
+    cdef int ISOTROPIC
+    cdef int RAYLEIGH
+    cdef int HENYEY_GREENSTEIN
+    cdef int HAZE_GARCIA_SIEWERT
+    cdef int CLOUD_GARCIA_SIEWERT
+
     extern void c_disort(disort_state *, disort_output *)
     extern void c_disort_out_alloc(disort_state *, disort_output *)
     extern void c_disort_state_alloc(disort_state *)
     extern void c_disort_out_free(disort_state *, disort_output *)
+    extern void c_getmom(int, double, int, double *);

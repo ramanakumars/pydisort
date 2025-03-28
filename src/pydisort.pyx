@@ -99,7 +99,6 @@ cdef class PyDisort:
         :param nstr: number of streams
         :param nphase: number of phase angles
         :param nmom: number of moments
-
         """
         self.state.accur = 0.
 
@@ -154,3 +153,36 @@ cdef class PyDisort:
                 "u0u": u0u,
                 "albmed": albmed,
                 "trnmed": trnmed}
+
+
+def get_phase_function(phase_function: str, nmom: int, gg: float):
+    """
+    Get the phase function for a given model
+
+    :param phase_function_type: the name of the phase function model. Choose from:
+        - isotropic
+        - rayleigh
+        - henyey_greenstein
+        - haze_garcia_siewert
+        - cloud_garcia_siewert
+    :param nmom: number of phase function moments
+    :param gg: Henyey-Greenstein asymmetry parameter (for HG phase functions)
+    :returns: the phase function moments (shape: nmom)
+    """
+    cdef double *pmom = <double *>malloc(nmom * sizeof(double));
+    cdef int phase_function_type;
+
+    if phase_function.lower() == "isotropic":
+        phase_function_type = ISOTROPIC
+    elif phase_function.lower() == "rayleigh":
+        phase_function_type = RAYLEIGH
+    elif phase_function.lower() == "henyey_greenstein":
+        phase_function_type = HENYEY_GREENSTEIN
+    elif phase_function.lower() == "haze_garcia_siewert":
+        phase_function_type = HAZE_GARCIA_SIEWERT
+    elif phase_function.lower() == "cloud_garcia_siewert":
+        phase_function_type = CLOUD_GARCIA_SIEWERT
+
+    c_getmom(phase_function_type, gg, nmom, pmom);
+
+    return np.asarray(copy_array_from_c(pmom, nmom))
